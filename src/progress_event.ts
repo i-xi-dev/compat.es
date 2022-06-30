@@ -1,6 +1,8 @@
 //
 
-import * as x from "./x.ts";
+import { Integer } from "https://raw.githubusercontent.com/i-xi-dev/int.es/1.0.0/mod.ts"; //TODO import_mapにうつす（今はdeno docで読めない）
+
+type int = number;
 
 /**
  * The `ProgressEvent` for Node.js
@@ -9,8 +11,8 @@ import * as x from "./x.ts";
  */
 class _ProgressEvent extends Event implements ProgressEvent<EventTarget> {
   #lengthComputable: boolean;
-  #loaded: number /* integer */;
-  #total: number /* integer */;
+  #loaded: int;
+  #total: int;
 
   /**
    * Creates a new `_ProgressEvent`.
@@ -26,11 +28,11 @@ class _ProgressEvent extends Event implements ProgressEvent<EventTarget> {
         ? init.lengthComputable
         : false;
     this.#loaded = (init && (typeof init.loaded === "number") &&
-        x._isNonNegativeInteger(init.loaded))
+        Integer.isNonNegativeInteger(init.loaded))
       ? init.loaded
       : 0;
     this.#total = (init && (typeof init.total === "number") &&
-        x._isNonNegativeInteger(init.total))
+        Integer.isNonNegativeInteger(init.total))
       ? init.total
       : 0;
   }
@@ -45,14 +47,14 @@ class _ProgressEvent extends Event implements ProgressEvent<EventTarget> {
   /**
    * @see [ProgressEvent.loaded](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent/loaded)
    */
-  get loaded(): number /* integer */ {
+  get loaded(): int {
     return this.#loaded;
   }
 
   /**
    * @see [ProgressEvent.total](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent/total)
    */
-  get total(): number /* integer */ {
+  get total(): int {
     return this.#total;
   }
 }
