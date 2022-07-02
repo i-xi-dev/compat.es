@@ -1,5 +1,5 @@
 import { assertStrictEquals } from "std/testing/asserts";
-import { _ProgressEvent as ProgressEvent } from "../src/progress_event.ts";
+import { _ProgressEvent as ProgressEvent } from "../mod.ts";
 
 Deno.test("new ProgressEvent(string)", () => {
   const event1 = new ProgressEvent("progress-x");
