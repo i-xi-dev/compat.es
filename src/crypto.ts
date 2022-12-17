@@ -8,6 +8,9 @@
  * - Deno  
  * References the `globalThis.crypto`
  *
+ * - Node.js 19.0+  
+ * References the `globalThis.crypto`
+ *
  * - Node.js 15.0+  
  * References the [`webcrypto`](https://nodejs.org/api/webcrypto.html#class-crypto) of `node:crypto` package
  */
