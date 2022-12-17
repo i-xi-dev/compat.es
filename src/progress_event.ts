@@ -1,6 +1,6 @@
 //
 
-import { Integer } from "./deps.ts";
+import { Integer } from "i-xi-dev/int.es";
 
 type int = number;
 
