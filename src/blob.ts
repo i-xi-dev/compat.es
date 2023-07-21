@@ -10,16 +10,16 @@ type _BlobConstructor = {
  * If the `globalThis` has a [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob), or if the `node:buffer` package has a `Blob`, then the `Blob` constructor.
  * Otherwise referencing it will throw a `ReferenceError`.
  *
- * - Browser  
+ * - Browser
  * References the `globalThis.Blob`
  *
- * - Deno  
+ * - Deno
  * References the `globalThis.Blob`
  *
- * - Node.js 18.0+  
+ * - Node.js 18.0+
  * References the [`globalThis.Blob`](https://nodejs.org/api/globals.html#class-blob)
- * 
- * - Node.js 15.7+ or 14.18+  
+ *
+ * - Node.js 15.7+ or 14.18+
  * References the [`Blob`](https://nodejs.org/api/buffer.html#class-blob) of `node:buffer` package
  */
 let _Blob: _BlobConstructor;

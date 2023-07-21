@@ -63,13 +63,13 @@ class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
  * If the `globalThis` has a [`ProgressEvent`](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent), then the `ProgressEvent` constructor.
  * Otherwise the polyfill of `ProgressEvent` constructor.
  *
- * - Browser  
+ * - Browser
  * References the `globalThis.ProgressEvent`
  *
- * - Deno  
+ * - Deno
  * References the `globalThis.ProgressEvent`
  *
- * - Node.js  
+ * - Node.js
  * References the polyfill
  */
 const _ProgressEvent = (globalThis as unknown as {
