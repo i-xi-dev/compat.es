@@ -1,8 +1,8 @@
 type _BlobConstructor = {
   prototype: Blob;
   new (
-    blobParts?: BlobPart[] | undefined,
-    options?: BlobPropertyBag | undefined,
+    blobParts?: BlobPart[],
+    options?: BlobPropertyBag,
   ): Blob;
 };
 
