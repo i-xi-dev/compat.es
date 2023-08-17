@@ -2,8 +2,6 @@
 
 import { Integer } from "../deps.ts";
 
-type int = number;
-
 /**
  * The `ProgressEvent` for Node.js
  *
@@ -11,8 +9,8 @@ type int = number;
  */
 class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
   #lengthComputable: boolean;
-  #loaded: int;
-  #total: int;
+  #loaded: Integer;
+  #total: Integer;
 
   /**
    * Creates a new `_ProgressEventFN`.
@@ -47,14 +45,14 @@ class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
   /**
    * @see [ProgressEvent.loaded](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent/loaded)
    */
-  get loaded(): int {
+  get loaded(): Integer {
     return this.#loaded;
   }
 
   /**
    * @see [ProgressEvent.total](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent/total)
    */
-  get total(): int {
+  get total(): Integer {
     return this.#total;
   }
 }
