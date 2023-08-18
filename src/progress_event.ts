@@ -1,6 +1,6 @@
 //
 
-import { Integer } from "../deps.ts";
+import { NonNegativeInteger } from "../deps.ts";
 
 /**
  * The `ProgressEvent` for Node.js
@@ -9,8 +9,8 @@ import { Integer } from "../deps.ts";
  */
 class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
   #lengthComputable: boolean;
-  #loaded: Integer;
-  #total: Integer;
+  #loaded: NonNegativeInteger;
+  #total: NonNegativeInteger;
 
   /**
    * Creates a new `_ProgressEventFN`.
@@ -21,16 +21,15 @@ class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
   constructor(type: string, init?: ProgressEventInit) {
     super(type, init);
 
-    this.#lengthComputable =
-      (init && (typeof init.lengthComputable === "boolean"))
-        ? init.lengthComputable
-        : false;
-    this.#loaded = (init && (typeof init.loaded === "number") &&
-        Integer.isNonNegativeInteger(init.loaded))
+    this.#lengthComputable = (typeof init?.lengthComputable === "boolean")
+      ? init.lengthComputable
+      : false;
+    this.#loaded = ((typeof init?.loaded === "number") &&
+        NonNegativeInteger.isNonNegativeInteger(init.loaded))
       ? init.loaded
       : 0;
-    this.#total = (init && (typeof init.total === "number") &&
-        Integer.isNonNegativeInteger(init.total))
+    this.#total = ((typeof init?.total === "number") &&
+        NonNegativeInteger.isNonNegativeInteger(init.total))
       ? init.total
       : 0;
   }
@@ -45,14 +44,14 @@ class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
   /**
    * @see [ProgressEvent.loaded](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent/loaded)
    */
-  get loaded(): Integer {
+  get loaded(): NonNegativeInteger {
     return this.#loaded;
   }
 
   /**
    * @see [ProgressEvent.total](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent/total)
    */
-  get total(): Integer {
+  get total(): NonNegativeInteger {
     return this.#total;
   }
 }
