@@ -28,8 +28,8 @@ class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
       fallback: 0,
       method: "trunc", // ブラウザの実装に合わせた
     } as const;
-    this.#loaded = NonNegativeInteger.clamp(init?.loaded, options);
-    this.#total = NonNegativeInteger.clamp(init?.total, options);
+    this.#loaded = NonNegativeInteger.from(init?.loaded, options);
+    this.#total = NonNegativeInteger.from(init?.total, options);
   }
 
   /**
