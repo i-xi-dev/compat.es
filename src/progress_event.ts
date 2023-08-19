@@ -24,14 +24,12 @@ class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
     this.#lengthComputable = (typeof init?.lengthComputable === "boolean")
       ? init.lengthComputable
       : false;
-    this.#loaded = ((typeof init?.loaded === "number") &&
-        NonNegativeInteger.isNonNegativeInteger(init.loaded))
-      ? init.loaded
-      : 0;
-    this.#total = ((typeof init?.total === "number") &&
-        NonNegativeInteger.isNonNegativeInteger(init.total))
-      ? init.total
-      : 0;
+    const options = {
+      fallback: 0,
+      method: "trunc", // ブラウザの実装に合わせた
+    } as const;
+    this.#loaded = NonNegativeInteger.clamp(init?.loaded, options);
+    this.#total = NonNegativeInteger.clamp(init?.total, options);
   }
 
   /**
