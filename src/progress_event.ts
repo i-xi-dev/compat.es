@@ -1,6 +1,6 @@
 //
 
-import { NonNegativeInteger } from "../deps.ts";
+import { SafeInteger } from "../deps.ts";
 
 /**
  * The `ProgressEvent` for Node.js
@@ -9,8 +9,8 @@ import { NonNegativeInteger } from "../deps.ts";
  */
 class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
   #lengthComputable: boolean;
-  #loaded: NonNegativeInteger;
-  #total: NonNegativeInteger;
+  #loaded: SafeInteger;
+  #total: SafeInteger;
 
   /**
    * Creates a new `_ProgressEventFN`.
@@ -24,12 +24,13 @@ class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
     this.#lengthComputable = (typeof init?.lengthComputable === "boolean")
       ? init.lengthComputable
       : false;
-    const options = {
+    const options: SafeInteger.FromOptions = {
       fallback: 0,
-      method: "trunc", // ブラウザの実装に合わせた
+      lowerLimit: 0,
+      roundingMode: SafeInteger.RoundingMode.TRUNCATE, // ブラウザの実装に合わせた
     } as const;
-    this.#loaded = NonNegativeInteger.from(init?.loaded, options);
-    this.#total = NonNegativeInteger.from(init?.total, options);
+    this.#loaded = SafeInteger.fromNumber(init?.loaded, options);
+    this.#total = SafeInteger.fromNumber(init?.total, options);
   }
 
   /**
@@ -42,14 +43,14 @@ class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
   /**
    * @see [ProgressEvent.loaded](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent/loaded)
    */
-  get loaded(): NonNegativeInteger {
+  get loaded(): SafeInteger {
     return this.#loaded;
   }
 
   /**
    * @see [ProgressEvent.total](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent/total)
    */
-  get total(): NonNegativeInteger {
+  get total(): SafeInteger {
     return this.#total;
   }
 }
