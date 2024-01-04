@@ -1,6 +1,6 @@
 //
 
-import { SafeInteger } from "../deps.ts";
+import { RoundingMode, SafeInteger } from "../deps.ts";
 
 /**
  * The `ProgressEvent` for Node.js
@@ -26,9 +26,9 @@ class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
       : false;
     const options: SafeInteger.FromOptions = {
       fallback: 0,
-      lowerLimit: 0,
-      roundingMode: SafeInteger.RoundingMode.TRUNCATE, // ブラウザの実装に合わせた
-    } as const;
+      clampRange: [0, Number.MAX_SAFE_INTEGER],
+      roundingMode: RoundingMode.TRUNCATE, // ブラウザの実装に合わせた
+    };
     this.#loaded = SafeInteger.fromNumber(init?.loaded, options);
     this.#total = SafeInteger.fromNumber(init?.total, options);
   }
