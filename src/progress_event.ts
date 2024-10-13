@@ -1,6 +1,17 @@
 //
 
-import { RoundingMode, SafeInteger } from "../deps.ts";
+import { Integer, SafeInteger } from "../deps.ts";
+
+type int = number;
+
+function _initAmount(value?: number): int {
+  let adjustedValue = Number.isFinite(value) ? value as number : 0;
+  adjustedValue = Integer.roundNumber(
+    adjustedValue,
+    Integer.RoundingMode.TRUNCATE,
+  );
+  return SafeInteger.clampToNonNegative(adjustedValue);
+}
 
 /**
  * The `ProgressEvent` for Node.js
@@ -9,8 +20,8 @@ import { RoundingMode, SafeInteger } from "../deps.ts";
  */
 class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
   #lengthComputable: boolean;
-  #loaded: SafeInteger;
-  #total: SafeInteger;
+  #loaded: int;
+  #total: int;
 
   /**
    * Creates a new `_ProgressEventFN`.
@@ -24,13 +35,8 @@ class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
     this.#lengthComputable = (typeof init?.lengthComputable === "boolean")
       ? init.lengthComputable
       : false;
-    const options: SafeInteger.FromOptions = {
-      fallback: 0,
-      clampRange: [0, Number.MAX_SAFE_INTEGER],
-      roundingMode: RoundingMode.TRUNCATE, // ブラウザの実装に合わせた
-    };
-    this.#loaded = SafeInteger.fromNumber(init?.loaded, options);
-    this.#total = SafeInteger.fromNumber(init?.total, options);
+    this.#loaded = _initAmount(init?.loaded);
+    this.#total = _initAmount(init?.total);
   }
 
   /**
@@ -43,14 +49,14 @@ class _ProgressEventFN extends Event implements ProgressEvent<EventTarget> {
   /**
    * @see [ProgressEvent.loaded](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent/loaded)
    */
-  get loaded(): SafeInteger {
+  get loaded(): int {
     return this.#loaded;
   }
 
   /**
    * @see [ProgressEvent.total](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent/total)
    */
-  get total(): SafeInteger {
+  get total(): int {
     return this.#total;
   }
 }
