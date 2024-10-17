@@ -1,5 +1,3 @@
-//
-
 import { Integer, SafeInteger } from "../deps.ts";
 
 type int = number;
