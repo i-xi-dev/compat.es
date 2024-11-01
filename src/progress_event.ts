@@ -1,14 +1,14 @@
-import { Integer, SafeInteger } from "../deps.ts";
+import { NumberType, Numerics, SafeIntegerType } from "../deps.ts";
 
 type int = number;
 
 function _initAmount(value?: number): int {
   let adjustedValue = Number.isFinite(value) ? value as number : 0;
-  adjustedValue = Integer.roundNumber(
+  adjustedValue = NumberType.round(
     adjustedValue,
-    Integer.RoundingMode.TRUNCATE,
+    Numerics.RoundingMode.TRUNCATE,
   );
-  return SafeInteger.clampToNonNegative(adjustedValue);
+  return SafeIntegerType.clampToNonNegative(adjustedValue);
 }
 
 /**
